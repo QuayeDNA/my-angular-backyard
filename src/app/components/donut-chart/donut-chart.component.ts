@@ -1,5 +1,5 @@
 import { Component, computed, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 interface ChartData {
   label: string;
@@ -11,7 +11,7 @@ interface ChartData {
 @Component({
   selector: 'app-donut-chart',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   template: `
     <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 max-w-2xl mx-auto">
       <!-- Title -->
