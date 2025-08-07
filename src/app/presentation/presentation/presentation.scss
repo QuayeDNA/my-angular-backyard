@@ -1,0 +1,123 @@
+
+.presentation-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  color: white;
+  font-family: 'Inter', -apple-system, system-ui, sans-serif;
+}
+
+.presentation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+
+  h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  .slide-counter {
+    font-size: 1rem;
+    opacity: 0.8;
+  }
+}
+
+.slide-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 1rem;
+  min-height: 0; /* Allow flex item to shrink */
+}
+
+.slide {
+  max-width: 1000px;
+  width: 100%;
+  margin: 0 auto;
+
+  h2 {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    font-weight: 700;
+  }
+
+  p {
+    font-size: 1.5rem;
+    opacity: 0.9;
+    line-height: 1.6;
+  }
+}
+
+.presentation-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.nav-btn {
+  padding: 0.75rem 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+}
+
+.slide-indicators {
+  display: flex;
+  gap: 0.5rem;
+
+  .indicator {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    background: transparent;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &.active {
+      background: white;
+      color: #1e3c72;
+      border-color: white;
+    }
+
+    &:hover:not(.active) {
+      border-color: rgba(255, 255, 255, 0.6);
+      background: rgba(255, 255, 255, 0.1);
+    }
+  }
+}
+
+.progress-bar {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+    transition: width 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
+  }
+}

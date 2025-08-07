@@ -1,0 +1,591 @@
+// Slide 3 - Practical Patterns Styles
+.slide-patterns {
+  padding: 2rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  overflow-y: auto;
+}
+
+// Header
+.slide-header {
+  text-align: center;
+  margin-bottom: 1rem;
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+  }
+
+  .slide-subtitle {
+    font-size: 1.1rem;
+    color: #b0b0b0;
+    margin: 0 0 1rem 0;
+  }
+}
+
+// Presentation Progress
+.presentation-progress {
+  margin-top: 1.5rem;
+
+  .progress-steps {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.75rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      min-width: 80px;
+      transition: all 0.3s ease;
+
+      &.completed {
+        background: rgba(102, 126, 234, 0.2);
+        border-color: #667eea;
+
+        .step-icon {
+          transform: scale(1.1);
+        }
+      }
+
+      .step-icon {
+        font-size: 1.2rem;
+        transition: transform 0.3s ease;
+      }
+
+      span:last-child {
+        color: #b0b0b0;
+        font-size: 0.8rem;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+// Main Patterns Grid
+.patterns-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: 1.5rem;
+  flex: 1;
+}
+
+.pattern-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(102, 126, 234, 0.3);
+    transform: translateY(-2px);
+  }
+}
+
+.pattern-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+
+  .pattern-icon {
+    font-size: 1.5rem;
+  }
+
+  h2 {
+    color: #ffffff;
+    font-size: 1.25rem;
+    margin: 0;
+    font-weight: 600;
+  }
+}
+
+.pattern-content {
+  p {
+    color: #b0b0b0;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+  }
+}
+
+// Code Examples
+.code-example {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+
+  pre {
+    margin: 0;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: #e0e0e0;
+
+    code {
+      color: inherit;
+    }
+  }
+}
+
+// Demo Sections
+.pattern-demo {
+  margin-top: 1rem;
+}
+
+// Presenter Notes
+.presenter-notes {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: rgba(255, 165, 0, 0.1);
+  border: 1px solid rgba(255, 165, 0, 0.3);
+  border-radius: 8px;
+
+  h4 {
+    color: #ffa500;
+    margin: 0 0 0.5rem 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  ul {
+    margin: 0;
+    padding-left: 1.2rem;
+
+    li {
+      color: #e0e0e0;
+      font-size: 0.85rem;
+      line-height: 1.4;
+      margin-bottom: 0.25rem;
+    }
+  }
+}
+
+// Common Demo Button Styles
+.demo-btn {
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  }
+
+  &.secondary {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+// Enter/Leave Demo
+.enter-leave-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+
+  .notification {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: rgba(74, 222, 128, 0.2);
+    border: 1px solid #4ade80;
+    border-radius: 8px;
+    color: #ffffff;
+
+    .notification-icon {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+// List Demo
+.list-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+
+  .list-controls {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-height: 120px;
+
+    .list-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(102, 126, 234, 0.3);
+      }
+
+      .item-icon {
+        font-size: 1.1rem;
+      }
+
+      .item-id {
+        margin-left: auto;
+        color: #888;
+        font-size: 0.8rem;
+      }
+    }
+  }
+}
+
+// Route Demo
+.route-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+
+  .route-nav {
+    display: flex;
+    gap: 0.5rem;
+
+    .nav-btn {
+      padding: 0.5rem 1rem;
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      &.active {
+        background: #667eea;
+        border-color: #667eea;
+      }
+    }
+  }
+
+  .route-content {
+    min-height: 200px;
+    overflow: hidden;
+
+    .page-container {
+      position: relative;
+      height: 100%;
+    }
+
+    .page {
+      padding: 1.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      color: #ffffff;
+
+      h3 {
+        margin: 0 0 1rem 0;
+        color: #667eea;
+      }
+
+      p {
+        color: #b0b0b0;
+        line-height: 1.5;
+        margin-bottom: 1.5rem;
+      }
+
+      .dashboard-cards {
+        display: flex;
+        gap: 1rem;
+
+        .stat-card {
+          flex: 1;
+          padding: 1rem;
+          background: rgba(102, 126, 234, 0.1);
+          border: 1px solid rgba(102, 126, 234, 0.3);
+          border-radius: 6px;
+          text-align: center;
+
+          .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #667eea;
+          }
+
+          .stat-label {
+            font-size: 0.9rem;
+            color: #b0b0b0;
+            margin-top: 0.25rem;
+          }
+        }
+      }
+
+      .profile-info {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        .profile-field {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 0.75rem;
+          background: rgba(255, 255, 255, 0.05);
+          border-radius: 6px;
+
+          label {
+            font-weight: 500;
+            color: #667eea;
+          }
+
+          span {
+            color: #e0e0e0;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Form Demo
+.form-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    label {
+      color: #ffffff;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    .form-input {
+      padding: 0.75rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 6px;
+      color: #ffffff;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+
+      &::placeholder {
+        color: #888;
+      }
+
+      &:focus {
+        outline: none;
+        border-color: #667eea;
+        background: rgba(102, 126, 234, 0.1);
+      }
+    }
+
+    .validation-message {
+      font-size: 0.85rem;
+      min-height: 1.2rem;
+
+      .success {
+        color: #4ade80;
+      }
+
+      .error {
+        color: #ef4444;
+      }
+
+      .hint {
+        color: #888;
+      }
+    }
+  }
+
+  .form-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+}
+
+// Footer Pattern Summary
+.patterns-footer {
+  margin-top: auto;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+  .pattern-summary {
+    text-align: center;
+
+    h3 {
+      color: #ffffff;
+      font-size: 1.25rem;
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+
+    .benefit-grid {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+
+      .benefit-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        min-width: 100px;
+
+        .benefit-icon {
+          font-size: 1.5rem;
+        }
+
+        span {
+          color: #b0b0b0;
+          font-size: 0.9rem;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+
+  .keyboard-shortcuts {
+    text-align: center;
+    margin-top: 2rem;
+
+    small {
+      color: #888;
+      font-size: 0.75rem;
+
+      kbd {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 0.2rem 0.4rem;
+        border-radius: 3px;
+        font-family: monospace;
+        font-size: 0.7rem;
+        color: #667eea;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 1024px) {
+  .patterns-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .slide-patterns {
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .slide-header h1 {
+    font-size: 2rem;
+  }
+
+  .pattern-card {
+    padding: 1rem;
+  }
+
+  .demo-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .list-controls {
+    flex-direction: column;
+  }
+
+  .route-nav {
+    flex-direction: column;
+  }
+
+  .benefit-grid {
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .slide-header h1 {
+    font-size: 1.75rem;
+  }
+
+  .pattern-header h2 {
+    font-size: 1.1rem;
+  }
+
+  .code-example pre {
+    font-size: 0.75rem;
+  }
+
+  .dashboard-cards {
+    flex-direction: column;
+  }
+
+  .benefit-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+}
