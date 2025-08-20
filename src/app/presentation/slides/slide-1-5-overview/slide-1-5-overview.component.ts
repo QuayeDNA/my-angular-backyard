@@ -227,9 +227,9 @@ export class ExampleComponent {
 }`;
 
   ngOnInit() {
-    // Stagger the content appearance
-    setTimeout(() => this.contentTrigger.set(1), 300);
-    setTimeout(() => this.footerTrigger.set(1), 1200);
+    // Stagger the content appearance with optimized timing
+    setTimeout(() => this.contentTrigger.set(1), 150);
+    setTimeout(() => this.footerTrigger.set(1), 400);
   }
 
   // Code highlighting

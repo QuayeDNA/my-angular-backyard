@@ -1,19 +1,15 @@
 import { Component, ChangeDetectionStrategy, signal, computed, HostListener, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { buttonPress, slideTransition } from '../../shared/animations';
+import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
+import { buttonPress } from '../../shared/animations';
 import { performanceMonitor } from '../../shared/performance-monitor';
-import { Slide1IntroComponent } from '../slides/slide-1-intro/slide-1-intro.component';
-import { Slide15OverviewComponent } from '../slides/slide-1-5-overview/slide-1-5-overview.component';
-import { Slide2ConceptsComponent } from '../slides/slide-2-concepts/slide-2-concepts.component';
-import { Slide3PatternsComponent } from '../slides/slide-3-patterns/slide-3-patterns.component';
-import { Slide4AdvancedComponent } from '../slides/slide-4-advanced/slide-4-advanced.component';
 import { Slide5PlaygroundComponent } from '../slides/slide-5-playground/slide-5-playground.component';
-import { Slide6PerformanceComponent } from '../slides/slide-6-performance/slide-6-performance.component';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-presentation',
   standalone: true,
-  imports: [CommonModule, Slide1IntroComponent, Slide15OverviewComponent, Slide2ConceptsComponent, Slide3PatternsComponent, Slide4AdvancedComponent, Slide5PlaygroundComponent, Slide6PerformanceComponent],
+  imports: [CommonModule, RouterOutlet, Slide5PlaygroundComponent],
   template: `
     <div class="presentation-container">
       <!-- Header with slide counter -->
@@ -38,35 +34,11 @@ import { Slide6PerformanceComponent } from '../slides/slide-6-performance/slide-
       </header>
 
       <!-- Main slide content area -->
-      <main class="slide-content" [@slideTransition]="currentSlideIndex()">
+      <main class="slide-content router-outlet-container">
         @if (showPlayground()) {
           <app-slide-5-playground />
         } @else {
-          @switch (currentSlide()) {
-            @case ('intro') {
-              <app-slide-1-intro />
-            }
-            @case ('overview') {
-              <app-slide-1-5-overview />
-            }
-            @case ('concepts') {
-              <app-slide-2-concepts />
-            }
-            @case ('patterns') {
-              <app-slide-3-patterns />
-            }
-             @case ('advanced') {
-              <app-slide-4-advanced />
-            }
-            @case ('performance') {
-              <app-slide-6-performance />
-            }
-            @default {
-              <div class="slide">
-                <h2>Slide not found</h2>
-              </div>
-            }
-          }
+          <router-outlet />
         }
       </main>
 
@@ -112,14 +84,27 @@ import { Slide6PerformanceComponent } from '../slides/slide-6-performance/slide-
     </div>
   `,
   styleUrl: './presentation.scss',
-  animations: [slideTransition, buttonPress],
+  animations: [buttonPress],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PresentationComponent implements OnInit, OnDestroy {
+  constructor(private readonly router: Router) {
+    // Listen to route changes to update slide index
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      const urlSegments = event.url.split('/');
+      const slideName = urlSegments[urlSegments.length - 1];
+      const slideIndex = this.slides.findIndex(slide => slide === slideName);
+      if (slideIndex !== -1) {
+        this.currentSlideIndex.set(slideIndex);
+      }
+    });
+  }
+
   // Slide configuration
   protected readonly slides = [
-    'intro', 'overview', 'concepts', 'patterns','advanced',
-    'performance'
+    'intro', 'overview', 'concepts', 'patterns', 'advanced', 'performance'
   ] as const;
 
   protected readonly totalSlides = this.slides.length;
@@ -145,21 +130,24 @@ export class PresentationComponent implements OnInit, OnDestroy {
 
   // Navigation methods
   protected nextSlide(): void {
-    this.currentSlideIndex.update(current =>
-      Math.min(current + 1, this.totalSlides - 1)
-    );
+    const nextIndex = Math.min(this.currentSlideIndex() + 1, this.totalSlides - 1);
+    this.navigateToSlide(nextIndex);
   }
 
   protected previousSlide(): void {
-    this.currentSlideIndex.update(current =>
-      Math.max(current - 1, 0)
-    );
+    const prevIndex = Math.max(this.currentSlideIndex() - 1, 0);
+    this.navigateToSlide(prevIndex);
   }
 
   protected goToSlide(index: number): void {
     if (index >= 0 && index < this.totalSlides) {
-      this.currentSlideIndex.set(index);
+      this.navigateToSlide(index);
     }
+  }
+
+  private navigateToSlide(index: number): void {
+    const slideName = this.slides[index];
+    this.router.navigate(['/presentation', slideName]);
   }
 
   // Playground methods
@@ -176,6 +164,15 @@ export class PresentationComponent implements OnInit, OnDestroy {
     setInterval(() => {
       this.currentFPS.set(performanceMonitor.getCurrentFPS());
     }, 1000);
+
+    // Set initial slide index based on current route
+    const currentUrl = this.router.url;
+    const urlSegments = currentUrl.split('/');
+    const slideName = urlSegments[urlSegments.length - 1];
+    const slideIndex = this.slides.findIndex(slide => slide === slideName);
+    if (slideIndex !== -1) {
+      this.currentSlideIndex.set(slideIndex);
+    }
   }
 
   ngOnDestroy(): void {

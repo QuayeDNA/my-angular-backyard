@@ -6,6 +6,11 @@
   background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
   color: white;
   font-family: 'Inter', -apple-system, system-ui, sans-serif;
+
+  // Performance optimizations
+  will-change: auto;
+  transform: translateZ(0); // Create GPU layer
+  backface-visibility: hidden;
 }
 
 .presentation-header {
@@ -54,6 +59,16 @@
       font-size: 1rem;
       opacity: 0.8;
     }
+
+    .performance-indicator {
+      font-size: 0.8rem;
+      padding: 0.25rem 0.5rem;
+      background: rgba(0, 255, 0, 0.1);
+      border: 1px solid rgba(0, 255, 0, 0.3);
+      border-radius: 4px;
+      color: #4ade80;
+      font-family: 'Consolas', 'Monaco', monospace;
+    }
   }
 }
 
@@ -62,9 +77,32 @@
   overflow-y: auto;
   overflow-x: hidden;
   min-height: 0; /* Allow flex item to shrink */
+
+  // Performance optimizations
+  transform: translateZ(0); // Create GPU layer
+  will-change: transform;
+  contain: layout style paint; // Optimize rendering
+
+  .router-outlet-container {
+    height: 100%;
+
+    // Smooth transitions for route changes
+    router-outlet + * {
+      animation: fadeInSlide 0.3s ease-out;
+    }
+  }
 }
 
-.slide {
+@keyframes fadeInSlide {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}.slide {
   max-width: 1000px;
   width: 100%;
   margin: 0 auto;

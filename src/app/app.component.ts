@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { PresentationComponent } from './presentation/presentation/presentation';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [PresentationComponent],
-  template: `<app-presentation />`,
+  imports: [RouterOutlet],
+  template: `<router-outlet />`,
   styles: [`
     :host {
       display: block;

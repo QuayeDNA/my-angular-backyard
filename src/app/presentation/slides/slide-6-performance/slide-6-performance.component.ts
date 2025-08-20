@@ -663,10 +663,10 @@ export class AnimationService {
   );
 
   ngOnInit() {
-    // Staggered animation triggers for better visual flow
-    setTimeout(() => this.practicesTrigger.set(1), 200);
-    setTimeout(() => this.angular20Trigger.set(1), 300);
-    setTimeout(() => this.conclusionTrigger.set(1), 400);
+    // Staggered animation triggers for better visual flow - optimized timing
+    setTimeout(() => this.practicesTrigger.set(1), 100);
+    setTimeout(() => this.angular20Trigger.set(1), 150);
+    setTimeout(() => this.conclusionTrigger.set(1), 200);
   }
 
   ngAfterViewInit() {

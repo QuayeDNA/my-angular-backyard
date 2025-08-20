@@ -354,7 +354,7 @@ interface AnimationPreset {
 })
 export class Slide5PlaygroundComponent implements OnInit, AfterViewInit {
   constructor(private readonly elementRef: ElementRef) {
-    // Setup automatic code highlighting when values change
+    // Setup automatic code highlighting when values change with debouncing
     effect(() => {
       // Watch for any changes in animation parameters
       this.transformX();
@@ -366,8 +366,11 @@ export class Slide5PlaygroundComponent implements OnInit, AfterViewInit {
       this.backgroundColor();
       this.borderRadius();
 
-      // Trigger code update after a brief delay to batch changes
-      setTimeout(() => this.highlightCode(), 50);
+      // Debounce code updates to reduce PrismJS overhead
+      if (this.highlightTimeoutId) {
+        clearTimeout(this.highlightTimeoutId);
+      }
+      this.highlightTimeoutId = setTimeout(() => this.highlightCode(), 150);
     });
   }
 
@@ -593,6 +596,7 @@ export class MyComponent {
 
   private animationTimeoutId: any;
   private progressIntervalId: any;
+  private highlightTimeoutId: any;
 
   getTransformString(): string {
     const translateX = this.transformX();
@@ -604,11 +608,11 @@ export class MyComponent {
   }
 
   ngOnInit() {
-    // Trigger stagger animations
-    setTimeout(() => this.controlsTrigger.set(1), 300);
-    setTimeout(() => this.previewTrigger.set(1), 600);
-    setTimeout(() => this.codeTrigger.set(1), 900);
-    setTimeout(() => this.presetsTrigger.set(1), 1200);
+    // Trigger stagger animations with shorter delays for better performance
+    setTimeout(() => this.controlsTrigger.set(1), 150);
+    setTimeout(() => this.previewTrigger.set(1), 250);
+    setTimeout(() => this.codeTrigger.set(1), 350);
+    setTimeout(() => this.presetsTrigger.set(1), 450);
   }
 
   ngAfterViewInit() {
@@ -683,7 +687,7 @@ export class MyComponent {
 
   private startProgressTracking(): void {
     const duration = this.duration();
-    const steps = 60; // 60fps simulation
+    const steps = 30; // 30fps instead of 60fps for better performance
     const stepTime = duration / steps;
     let currentStep = 0;
 
@@ -831,5 +835,8 @@ export class MyComponent {
 
   ngOnDestroy(): void {
     this.clearProgressTracking();
+    if (this.highlightTimeoutId) {
+      clearTimeout(this.highlightTimeoutId);
+    }
   }
 }

@@ -11,6 +11,12 @@ body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   overflow: hidden; // Prevent scrolling during presentation
   background: #1e3c72;
+
+  // Performance optimizations
+  transform: translateZ(0); // Create GPU layer
+  will-change: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 // Smooth focus styles for accessibility
@@ -19,19 +25,39 @@ button:focus-visible {
   outline-offset: 2px;
 }
 
-// Utility classes for slides
+// Utility classes for slides - Optimized for performance
 .fade-enter-active {
-  animation: fadeInUp 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+  animation: fadeInUp 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translate3d(0, 30px, 0);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+// Performance optimizations for all animated elements
+[class*="animate"],
+[class*="transition"] {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+// Reduce animations for users who prefer reduced motion
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 

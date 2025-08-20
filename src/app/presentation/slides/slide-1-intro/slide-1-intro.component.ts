@@ -70,9 +70,9 @@ export class Slide1IntroComponent implements OnInit {
   protected readonly journeyTrigger = signal(0);
 
   ngOnInit() {
-    // Trigger stagger animations with smooth timing
-    setTimeout(() => this.badgesTrigger.set(1), 600);
-    setTimeout(() => this.learningTrigger.set(1), 1200);
-    setTimeout(() => this.journeyTrigger.set(1), 1800);
+    // Trigger stagger animations with optimized timing
+    setTimeout(() => this.badgesTrigger.set(1), 300);
+    setTimeout(() => this.learningTrigger.set(1), 500);
+    setTimeout(() => this.journeyTrigger.set(1), 700);
   }
 }
