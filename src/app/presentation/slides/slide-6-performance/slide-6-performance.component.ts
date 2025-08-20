@@ -64,25 +64,24 @@ interface BestPractice {
         <p class="slide-subtitle">
           Production-ready animations with accessibility and optimization in mind
         </p>
-
-        <!-- Accessibility Toggle -->
-        <div class="accessibility-controls">
-          <label class="toggle-switch">
-            <input
-              type="checkbox"
-              [(ngModel)]="respectsReducedMotion"
-              (change)="toggleReducedMotion()">
-            <span class="toggle-slider"></span>
-            <span class="toggle-label">Respect prefers-reduced-motion</span>
-          </label>
-        </div>
       </header>
 
-      <!-- Main Content Grid -->
-      <main class="performance-grid">
+      <!-- Main Content - Vertical Layout -->
+      <main class="performance-content">
         <!-- Best Practices -->
         <section class="practices-panel" [@staggerIn]="practicesTrigger()">
           <h2>Best Practices</h2>
+
+          <!-- Presentation Notes -->
+          <div class="presentation-notes">
+            <h4>📝 Presentation Notes:</h4>
+            <ul>
+              <li>Emphasize performance-first mindset for production apps</li>
+              <li>Highlight the importance of GPU-accelerated properties</li>
+              <li>Show how accessibility and performance can work together</li>
+              <li>Discuss maintainable code practices for teams</li>
+            </ul>
+          </div>
 
           <!-- Category Tabs -->
           <div class="category-tabs">
@@ -114,10 +113,7 @@ interface BestPractice {
             @for (practice of filteredPractices(); track practice.title) {
               <div
                 class="practice-card"
-                [@accessibleFade]="{
-                  value: '',
-                  params: animationParams()
-                }">
+                [@accessibleFade]>
                 <div class="practice-header">
                   <div class="practice-icon">{{ practice.icon }}</div>
                   <div class="practice-info">
@@ -138,56 +134,66 @@ interface BestPractice {
           </div>
         </section>
 
-        <!-- Optimization Examples -->
-        <section class="optimization-panel" [@staggerIn]="optimizationTrigger()">
-          <h2>Before & After Optimization</h2>
+        <!-- Angular 20 Features -->
+        <section class="angular20-panel" [@staggerIn]="angular20Trigger()">
+          <h2>🚀 Angular 20 Animation Features</h2>
 
-          <div class="comparison-container">
-            <!-- Before -->
-            <div class="comparison-side">
-              <h3>❌ Before (Inefficient)</h3>
-              <div class="demo-area before-demo">
-                <div
-                  class="animation-element inefficient"
-                  [class.animating]="isShowingInefficient()"
-                  (click)="toggleInefficientDemo()">
-                  Inefficient Animation
-                </div>
+          <!-- Presentation Notes -->
+          <div class="presentation-notes">
+            <h4>📝 Presentation Notes:</h4>
+            <ul>
+              <li>Angular 20 brings significant improvements to animation performance</li>
+              <li>Signals integration makes reactive animations more intuitive</li>
+              <li>Standalone components reduce bundle size and improve tree-shaking</li>
+              <li>New APIs provide better TypeScript support and developer experience</li>
+            </ul>
+          </div>
+
+          <div class="features-grid">
+            <!-- Signals Integration -->
+            <div class="feature-card">
+              <div class="feature-header">
+                <span class="feature-icon">📡</span>
+                <h3>Signals Integration</h3>
               </div>
-              <div class="code-example">
-                <pre><code class="language-typescript" [innerHTML]="highlightedInefficient()"></code></pre>
-              </div>
-              <div class="performance-impact negative">
-                <span>🐌 Performance Impact:</span>
-                <ul>
-                  <li>Forces layout recalculation</li>
-                  <li>Blocks main thread</li>
-                  <li>Poor mobile performance</li>
-                </ul>
-              </div>
+              <p class="feature-description">
+                Native support for signals in animation parameters with automatic change detection
+              </p>
             </div>
 
-            <!-- After -->
-            <div class="comparison-side">
-              <h3>✅ After (Optimized)</h3>
-              <div class="demo-area after-demo">
-                <div
-                  class="animation-element efficient"
-                  [class.animating]="isShowingEfficient()"
-                  (click)="toggleEfficientDemo()">
-                  Optimized Animation
-                </div>
+            <!-- Standalone Components -->
+            <div class="feature-card">
+              <div class="feature-header">
+                <span class="feature-icon">🎯</span>
+                <h3>Standalone Components</h3>
               </div>
+              <p class="feature-description">
+                Simplified imports with better tree-shaking for animation modules
+              </p>
+            </div>
+
+            <!-- Enhanced Performance -->
+            <div class="feature-card">
+              <div class="feature-header">
+                <span class="feature-icon">⚡</span>
+                <h3>Enhanced Performance</h3>
+              </div>
+              <p class="feature-description">
+                Optimized animation engine with better memory management and reduced bundle size
+              </p>
+            </div>
+
+            <!-- New Animation APIs -->
+            <div class="feature-card">
+              <div class="feature-header">
+                <span class="feature-icon">🛠️</span>
+                <h3>New Animation APIs</h3>
+              </div>
+              <p class="feature-description">
+                Improved animation builder with better TypeScript support and intellisense
+              </p>
               <div class="code-example">
-                <pre><code class="language-typescript" [innerHTML]="highlightedEfficient()"></code></pre>
-              </div>
-              <div class="performance-impact positive">
-                <span>🚀 Performance Benefits:</span>
-                <ul>
-                  <li>GPU-accelerated transforms</li>
-                  <li>60fps smooth animations</li>
-                  <li>Excellent mobile performance</li>
-                </ul>
+                <pre><code class="language-typescript" [innerHTML]="highlightedNewApisCode()"></code></pre>
               </div>
             </div>
           </div>
@@ -196,6 +202,18 @@ interface BestPractice {
         <!-- Summary & Conclusion -->
         <section class="conclusion-panel" [@staggerIn]="conclusionTrigger()">
           <h2>Key Takeaways</h2>
+
+          <!-- Presentation Notes -->
+          <div class="presentation-notes">
+            <h4>📝 Presentation Notes:</h4>
+            <ul>
+              <li>Summarize the main performance principles covered</li>
+              <li>Remind audience about mobile performance considerations</li>
+              <li>Encourage testing on real devices, not just desktop</li>
+              <li>Emphasize the importance of accessibility in animations</li>
+              <li>Share resources for continued learning</li>
+            </ul>
+          </div>
 
           <div class="takeaways-grid">
             <div class="takeaway-card">
@@ -250,24 +268,12 @@ interface BestPractice {
         </section>
       </main>
 
-      <!-- Footer with Performance Tips -->
+      <!-- Footer -->
       <footer class="performance-footer">
-        @if (showPerformanceTips()) {
-          <div class="performance-tips" [@accessibleFade]="{value: '', params: animationParams()}">
-            <h4>💡 Pro Tips:</h4>
-            <ul>
-              <li>Use <code>will-change</code> sparingly and remove after animation</li>
-              <li>Prefer <code>transform3d()</code> over <code>transform()</code> for GPU acceleration</li>
-              <li>Monitor performance with Chrome DevTools Animation tab</li>
-              <li>Consider using Web Animations API for complex sequences</li>
-            </ul>
-          </div>
-        }
-
         <!-- Keyboard shortcuts -->
         <div class="keyboard-shortcuts">
           <small>
-            🎮 Shortcuts: <kbd>T</kbd> Tips | <kbd>A</kbd> Accessibility | <kbd>1-3</kbd> Categories
+            🎮 Shortcuts: <kbd>1-3</kbd> Categories | <kbd>4</kbd> Angular 20
           </small>
         </div>
       </footer>
@@ -289,25 +295,11 @@ export class Slide6PerformanceComponent implements OnInit, AfterViewInit, OnDest
 
   // Stagger animation triggers
   protected readonly practicesTrigger = signal(0);
-  protected readonly optimizationTrigger = signal(0);
+  protected readonly angular20Trigger = signal(0);
   protected readonly conclusionTrigger = signal(0);
-
-  // Accessibility controls
-  protected readonly respectsReducedMotion = signal(false);
-  protected readonly showPerformanceTips = signal(false);
 
   // Best practices
   protected readonly activeCategory = signal<PracticeCategory>('performance');
-
-  // Demo states
-  protected readonly isShowingInefficient = signal(false);
-  protected readonly isShowingEfficient = signal(false);
-
-  // Animation parameters based on accessibility preference
-  protected readonly animationParams = computed(() => ({
-    duration: this.respectsReducedMotion() ? 0 : 300,
-    easing: this.respectsReducedMotion() ? 'linear' : 'ease-out'
-  }));
 
   // Best practices data
   private readonly allPractices: BestPractice[] = [
@@ -330,6 +322,40 @@ animate('300ms ease-out', style({
 }))`,
       impact: 'high',
       icon: '⚡'
+    },
+    {
+      title: 'Angular 20 Signals Integration',
+      category: 'performance',
+      description: 'Use signals for reactive animation parameters with automatic change detection',
+      code: `// Angular 20 - Signals-driven animations
+@Component({
+  template: \`<div [@slideAnimation]="{
+    value: animationState(),
+    params: { duration: duration() }
+  }">Content</div>\`
+})
+export class SignalComponent {
+  animationState = signal<'start' | 'end'>('start');
+  duration = signal(300);
+}`,
+      impact: 'high',
+      icon: '📡'
+    },
+    {
+      title: 'Standalone Components',
+      category: 'performance',
+      description: 'Better tree-shaking and reduced bundle size with standalone components',
+      code: `// Angular 20 - Standalone with animations
+@Component({
+  imports: [CommonModule],
+  animations: [fadeInAnimation],
+  template: \`<div [@fadeIn]>Content</div>\`
+})
+export class StandaloneAnimated {}
+
+// Better tree-shaking removes unused animations`,
+      impact: 'medium',
+      icon: '🎯'
     },
     {
       title: 'Minimize Repaints',
@@ -426,6 +452,25 @@ export const slideIn = (direction: 'left' | 'right' | 'up' | 'down') =>
       icon: '🔄'
     },
     {
+      title: 'Angular 20 Animation Builder',
+      category: 'maintainability',
+      description: 'Use new type-safe animation builder APIs for better maintainability',
+      code: `// Angular 20 - Enhanced Animation Builder
+@Injectable()
+export class AnimationService {
+  constructor(private builder: AnimationBuilder) {}
+
+  createSlideAnimation(distance: number) {
+    return this.builder.build([
+      style({ transform: 'translateX(-{{ distance }}px)' }),
+      animate('300ms ease-out', style({ transform: 'translateX(0)' }))
+    ]);
+  }
+}`,
+      impact: 'high',
+      icon: '🛠️'
+    },
+    {
       title: 'Animation States as Enums',
       category: 'maintainability',
       description: 'Use enums for animation states to avoid magic strings',
@@ -466,31 +511,138 @@ export const slideAnimation = trigger('slide', [
   );
 
   // Code examples for optimization comparison
-  private readonly inefficientCode = `// ❌ Inefficient Animation
+  private readonly inefficientCode = `// ❌ Inefficient Animation - Causes Layout Thrashing
 const badAnimation = trigger('badSlide', [
-  transition('* => *', [
-    animate('500ms', style({
-      left: '{{ position }}px',      // Forces layout
-      width: '{{ width }}px',        // Forces layout
-      backgroundColor: '{{ color }}', // Forces paint
-      boxShadow: '0 4px 8px rgba(0,0,0,0.3)' // Forces paint
+  transition('start => end', [
+    animate('800ms ease-in-out', style({
+      left: '200px',           // Forces layout recalculation
+      width: '300px',          // Forces layout recalculation
+      height: '150px',         // Forces layout recalculation
+      backgroundColor: '#f59e0b', // Forces paint
+      boxShadow: '0 8px 24px rgba(0,0,0,0.4)' // Forces paint
     }))
   ])
 ]);
 
-// This triggers layout recalculation on every frame!`;
+// Every frame: Layout → Paint → Composite (EXPENSIVE!)`;
 
-  private readonly efficientCode = `// ✅ Optimized Animation
+  private readonly efficientCode = `// ✅ Optimized Animation - GPU Accelerated
 const goodAnimation = trigger('goodSlide', [
-  transition('* => *', [
-    animate('300ms cubic-bezier(0.25, 0.8, 0.25, 1)', style({
-      transform: 'translateX({{ position }}px) scale({{ scale }})', // GPU only
-      opacity: '{{ opacity }}'  // GPU only
+  transition('start => end', [
+    animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)', style({
+      transform: 'translateX(200px) scale(1.1)', // GPU only
+      opacity: 0.9                              // GPU only
     }))
   ])
 ]);
 
-// Composite layer only - 60fps performance!`;
+// Only composite layer operations - 60fps performance!`;
+
+  // Angular 20 specific code examples
+  private readonly signalsCode = `// Angular 20: Signals Integration
+@Component({
+  template: \`<div [@slideAnimation]="{
+    value: animationState(),
+    params: { duration: animationDuration() }
+  }">Content</div>\`
+})
+export class MyComponent {
+  // Signals automatically trigger change detection
+  animationState = signal<'start' | 'end'>('start');
+  animationDuration = signal(300);
+
+  // Animation reacts to signal changes automatically
+  triggerAnimation() {
+    this.animationState.set('end');
+  }
+}`;
+
+  private readonly standaloneCode = `// Angular 20: Standalone Components with Animations
+import { Component } from '@angular/core';
+import { provideAnimations } from '@angular/platform-browser/animations';
+
+@Component({
+  selector: 'app-standalone',
+  imports: [CommonModule], // Direct imports, no NgModule needed
+  template: \`<div [@fadeIn]>Standalone component!</div>\`,
+  animations: [fadeInAnimation]
+})
+export class StandaloneComponent {
+  // Tree-shaking automatically removes unused animations
+}
+
+// Bootstrap with animations provider
+bootstrapApplication(AppComponent, {
+  providers: [provideAnimations()]
+});`;
+
+  private readonly performanceCode = `// Angular 20: Enhanced Performance Features
+@Component({
+  animations: [
+    trigger('optimized', [
+      transition('* => *', [
+        // Automatic GPU layer creation
+        animate('300ms ease-out', style({
+          transform: 'translateX({{ x }}px)',
+          opacity: '{{ opacity }}'
+        }))
+      ])
+    ])
+  ]
+})
+export class OptimizedComponent {
+  // Signals enable more efficient change detection
+  position = signal({ x: 0, opacity: 1 });
+
+  // OnPush + Signals = Maximum Performance
+  static readonly changeDetection = ChangeDetectionStrategy.OnPush;
+}`;
+
+  private readonly newApisCode = `// Angular 20: New Animation Builder APIs
+import { AnimationBuilder, style, animate } from '@angular/animations';
+
+@Injectable()
+export class AnimationService {
+  constructor(private builder: AnimationBuilder) {}
+
+  // Type-safe animation building
+  createSlideAnimation(distance: number, duration = 300) {
+    return this.builder.build([
+      style({ transform: 'translateX(-{{ distance }}px)' }),
+      animate('{{ duration }}ms ease-out',
+        style({ transform: 'translateX(0)' }))
+    ]);
+  }
+
+  // Better TypeScript integration
+  playAnimation<T extends HTMLElement>(
+    element: T,
+    config: AnimationConfig
+  ): AnimationPlayer {
+    const animation = this.createSlideAnimation(config.distance);
+    return animation.create(element, {
+      distance: config.distance,
+      duration: config.duration
+    });
+  }
+}`;
+
+  // Computed highlighted code signals
+  protected readonly highlightedSignalsCode = computed(() =>
+    Prism.highlight(this.signalsCode, Prism.languages['typescript'], 'typescript')
+  );
+
+  protected readonly highlightedStandaloneCode = computed(() =>
+    Prism.highlight(this.standaloneCode, Prism.languages['typescript'], 'typescript')
+  );
+
+  protected readonly highlightedPerformanceCode = computed(() =>
+    Prism.highlight(this.performanceCode, Prism.languages['typescript'], 'typescript')
+  );
+
+  protected readonly highlightedNewApisCode = computed(() =>
+    Prism.highlight(this.newApisCode, Prism.languages['typescript'], 'typescript')
+  );
 
   // Highlighted code computed signals
   protected readonly highlightedInefficient = computed(() =>
@@ -502,13 +654,10 @@ const goodAnimation = trigger('goodSlide', [
   );
 
   ngOnInit() {
-    // Reduced stagger timing to improve responsiveness
+    // Staggered animation triggers for better visual flow
     setTimeout(() => this.practicesTrigger.set(1), 200);
-    setTimeout(() => this.optimizationTrigger.set(1), 300);
+    setTimeout(() => this.angular20Trigger.set(1), 300);
     setTimeout(() => this.conclusionTrigger.set(1), 400);
-
-    // Check for user's motion preferences
-    this.checkMotionPreferences();
   }
 
   ngAfterViewInit() {
@@ -520,40 +669,9 @@ const goodAnimation = trigger('goodSlide', [
     // Clean up any remaining timers
   }
 
-  // Accessibility methods
-  protected toggleReducedMotion(): void {
-    // This would typically be handled by CSS media queries
-    // but we're demonstrating the concept
-    if (this.respectsReducedMotion()) {
-      document.body.classList.add('reduce-motion');
-    } else {
-      document.body.classList.remove('reduce-motion');
-    }
-  }
-
-  private checkMotionPreferences(): void {
-    if (typeof window !== 'undefined' && window.matchMedia) {
-      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-      this.respectsReducedMotion.set(prefersReducedMotion.matches);
-
-      prefersReducedMotion.addEventListener('change', (e) => {
-        this.respectsReducedMotion.set(e.matches);
-      });
-    }
-  }
-
   // Category management
   protected setActiveCategory(category: PracticeCategory): void {
     this.activeCategory.set(category);
-  }
-
-  // Demo toggles
-  protected toggleInefficientDemo(): void {
-    this.isShowingInefficient.update(showing => !showing);
-  }
-
-  protected toggleEfficientDemo(): void {
-    this.isShowingEfficient.update(showing => !showing);
   }
 
   // Code highlighting - optimized to run only once
@@ -586,15 +704,6 @@ const goodAnimation = trigger('goodSlide', [
     }
 
     switch (event.key.toLowerCase()) {
-      case 't': // Toggle tips
-        event.preventDefault();
-        this.showPerformanceTips.update(show => !show);
-        break;
-      case 'a': // Toggle accessibility
-        event.preventDefault();
-        this.respectsReducedMotion.update(reduced => !reduced);
-        this.toggleReducedMotion();
-        break;
       case '1': // Performance category
         event.preventDefault();
         this.setActiveCategory('performance');
@@ -607,6 +716,15 @@ const goodAnimation = trigger('goodSlide', [
         event.preventDefault();
         this.setActiveCategory('maintainability');
         break;
+      case '4': {
+        // Scroll to Angular 20 features
+        event.preventDefault();
+        const angular20Section = this.elementRef.nativeElement.querySelector('.angular20-panel');
+        if (angular20Section) {
+          angular20Section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        break;
+      }
     }
   }
 }

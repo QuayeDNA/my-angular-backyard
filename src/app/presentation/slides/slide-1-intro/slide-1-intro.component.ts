@@ -13,7 +13,7 @@ import { fadeInUp, staggerIn } from '../../../shared/animations';
             <span class="highlight">Deep Dive</span>
           </h1>
           <p class="hero-subtitle">
-            Transform your applications with smooth, performant animations that delight users and enhance experiences
+            This presentation will cover the fundamentals of Angular animations, including key concepts and practical examples.
           </p>
           <div class="hero-badges" [@staggerIn]="badgesTrigger()">
             <span class="badge">🚀 Performance Focused</span>
@@ -31,9 +31,9 @@ import { fadeInUp, staggerIn } from '../../../shared/animations';
         </div>
       </section>
 
-      <!-- What You'll Learn -->
+      <!-- What We'll Learn -->
       <section class="learning-section">
-        <h2 class="section-title">What You'll Learn</h2>
+        <h2 class="section-title">What We'll Learn</h2>
         <div class="learning-grid" [@staggerIn]="learningTrigger()">
           <div class="learning-card">
             <div class="learning-icon">🎨</div>
@@ -43,7 +43,7 @@ import { fadeInUp, staggerIn } from '../../../shared/animations';
           <div class="learning-card">
             <div class="learning-icon">⚡</div>
             <h3>Performance Optimization</h3>
-            <p>GPU acceleration, frame rates, and production-ready techniques</p>
+            <p>Techniques to ensure smooth animations without compromising performance</p>
           </div>
           <div class="learning-card">
             <div class="learning-icon">🔧</div>
@@ -55,47 +55,6 @@ import { fadeInUp, staggerIn } from '../../../shared/animations';
             <h3>Accessibility & UX</h3>
             <p>Creating inclusive animations that enhance user experience</p>
           </div>
-        </div>
-      </section>
-
-      <!-- Journey Preview -->
-      <section class="journey-section">
-        <div class="journey-container" [@staggerIn]="journeyTrigger()">
-          <h3 class="journey-title">Our Animation Journey</h3>
-          <div class="journey-steps">
-            <div class="journey-step">
-              <div class="step-number">1</div>
-              <span>Fundamentals & Triggers</span>
-            </div>
-            <div class="journey-arrow">→</div>
-            <div class="journey-step">
-              <div class="step-number">2</div>
-              <span>States & Transitions</span>
-            </div>
-            <div class="journey-arrow">→</div>
-            <div class="journey-step">
-              <div class="step-number">3</div>
-              <span>Advanced Techniques</span>
-            </div>
-            <div class="journey-arrow">→</div>
-            <div class="journey-step">
-              <div class="step-number">4</div>
-              <span>Real-World Examples</span>
-            </div>
-            <div class="journey-arrow">→</div>
-            <div class="journey-step">
-              <div class="step-number">5</div>
-              <span>Performance & Best Practices</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Call to Action -->
-      <section class="cta-section">
-        <div class="cta-content">
-          <p class="cta-text">Ready to bring your Angular apps to life?</p>
-          <div class="cta-highlight">Let's animate! 🎬</div>
         </div>
       </section>
     </div>

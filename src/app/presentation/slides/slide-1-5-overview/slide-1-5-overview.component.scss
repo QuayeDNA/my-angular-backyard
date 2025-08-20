@@ -1,0 +1,365 @@
+// Slide 1.5 - Overview Styles
+.slide-overview {
+  padding: 2rem;
+  height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  color: white;
+}
+
+// Header
+.slide-header {
+  text-align: center;
+  margin-bottom: 1rem;
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+  }
+
+  .slide-subtitle {
+    font-size: 1.1rem;
+    color: #b0b0b0;
+    margin: 0;
+  }
+}
+
+// Main grid layout
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto auto;
+  gap: 1.5rem;
+  flex: 1;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+// Base card styles
+.overview-card,
+.comparison-card,
+.benefits-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(102, 126, 234, 0.3);
+    transform: translateY(-2px);
+  }
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+
+  .card-icon {
+    font-size: 1.5rem;
+  }
+
+  h2 {
+    color: #ffffff;
+    font-size: 1.25rem;
+    margin: 0;
+    font-weight: 600;
+  }
+}
+
+.card-content {
+  h3 {
+    color: #ffffff;
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+  }
+
+  h4 {
+    color: #ffffff;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+}
+
+// Feature points (replacing simple-list)
+.feature-points {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+
+  .feature-point {
+    padding: 0.5rem 0;
+    color: #b0b0b0;
+    font-size: 0.9rem;
+    position: relative;
+    padding-left: 1rem;
+
+    &::before {
+      content: '•';
+      color: #667eea;
+      position: absolute;
+      left: 0;
+      font-weight: bold;
+    }
+
+    strong {
+      color: #ffffff;
+    }
+  }
+}
+
+// Approach grid
+.approach-grid {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+
+  .approach-item {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 0.75rem;
+    border-radius: 8px;
+    border-left: 3px solid #667eea;
+
+    strong {
+      display: block;
+      color: #ffffff;
+      font-size: 0.9rem;
+      margin-bottom: 0.25rem;
+    }
+
+    span {
+      color: #b0b0b0;
+      font-size: 0.8rem;
+    }
+  }
+}
+
+// Comparison card specific styles
+.comparison-card {
+  grid-column: 1 / -1;
+
+  .comparison-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+
+    @media (max-width: 900px) {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+  }
+
+  .comparison-side {
+    h3 {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+      border-radius: 6px;
+      text-align: center;
+    }
+  }
+}
+
+// Code examples
+.code-example {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+
+  h4 {
+    color: #667eea;
+    font-size: 0.8rem;
+    margin: 0 0 0.5rem 0;
+    font-weight: 600;
+  }
+
+  pre {
+    margin: 0;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    color: #e0e0e0;
+    overflow-x: auto;
+
+    code {
+      color: inherit;
+    }
+  }
+}
+
+// Feature tags
+.features-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+
+  .feature-tag {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+
+    &.legacy {
+      background: rgba(239, 68, 68, 0.2);
+      color: #fca5a5;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    &.modern {
+      background: rgba(16, 185, 129, 0.2);
+      color: #86efac;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+  }
+}
+
+// Benefits card
+.benefits-card {
+  grid-column: 1 / -1;
+
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+
+    @media (max-width: 1000px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 600px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .benefit-item {
+    text-align: center;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .benefit-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    h4 {
+      color: #ffffff;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    p {
+      color: #b0b0b0;
+      font-size: 0.8rem;
+      line-height: 1.4;
+      margin: 0;
+    }
+  }
+}
+
+// Footer
+.slide-footer {
+  text-align: center;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+  .next-steps {
+    margin-bottom: 1rem;
+
+    h3 {
+      color: #ffffff;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      color: #b0b0b0;
+      margin: 0;
+      font-size: 0.9rem;
+
+      strong {
+        color: #667eea;
+      }
+    }
+  }
+
+  .keyboard-shortcuts {
+    small {
+      color: #888;
+      font-size: 0.75rem;
+
+      kbd {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 0.2rem 0.4rem;
+        border-radius: 3px;
+        font-family: monospace;
+        font-size: 0.7rem;
+        color: #667eea;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .slide-overview {
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .slide-header h1 {
+    font-size: 2rem;
+  }
+
+  .comparison-content {
+    grid-template-columns: 1fr !important;
+  }
+
+  .migration-steps {
+    flex-direction: column;
+
+    .step {
+      min-width: unset;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .slide-header h1 {
+    font-size: 1.75rem;
+  }
+
+  .card-header h2 {
+    font-size: 1.1rem;
+  }
+
+  .code-example pre {
+    font-size: 0.7rem;
+  }
+}

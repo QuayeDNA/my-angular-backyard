@@ -4,10 +4,8 @@ import {
   style,
   animate,
   transition,
-  keyframes,
   query,
   stagger,
-  group
 } from '@angular/animations';
 
 // Core slide transition (for navigation between slides)

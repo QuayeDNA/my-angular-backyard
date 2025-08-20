@@ -2,6 +2,7 @@ import { Component, ChangeDetectionStrategy, signal, computed, HostListener } fr
 import { CommonModule } from '@angular/common';
 import { buttonPress, slideTransition } from '../../shared/animations';
 import { Slide1IntroComponent } from '../slides/slide-1-intro/slide-1-intro.component';
+import { Slide15OverviewComponent } from '../slides/slide-1-5-overview/slide-1-5-overview.component';
 import { Slide2ConceptsComponent } from '../slides/slide-2-concepts/slide-2-concepts.component';
 import { Slide3PatternsComponent } from '../slides/slide-3-patterns/slide-3-patterns.component';
 import { Slide4AdvancedComponent } from '../slides/slide-4-advanced/slide-4-advanced.component';
@@ -11,7 +12,7 @@ import { Slide6PerformanceComponent } from '../slides/slide-6-performance/slide-
 @Component({
   selector: 'app-presentation',
   standalone: true,
-  imports: [CommonModule, Slide1IntroComponent, Slide2ConceptsComponent, Slide3PatternsComponent, Slide4AdvancedComponent, Slide5PlaygroundComponent, Slide6PerformanceComponent],
+  imports: [CommonModule, Slide1IntroComponent, Slide15OverviewComponent, Slide2ConceptsComponent, Slide3PatternsComponent, Slide4AdvancedComponent, Slide5PlaygroundComponent, Slide6PerformanceComponent],
   template: `
     <div class="presentation-container">
       <!-- Header with slide counter -->
@@ -27,6 +28,9 @@ import { Slide6PerformanceComponent } from '../slides/slide-6-performance/slide-
         @switch (currentSlide()) {
           @case ('intro') {
             <app-slide-1-intro />
+          }
+          @case ('overview') {
+            <app-slide-1-5-overview />
           }
           @case ('concepts') {
             <app-slide-2-concepts />
@@ -97,7 +101,7 @@ import { Slide6PerformanceComponent } from '../slides/slide-6-performance/slide-
 export class PresentationComponent {
   // Slide configuration
   protected readonly slides = [
-    'intro', 'concepts', 'patterns','advanced',
+    'intro', 'overview', 'concepts', 'patterns','advanced',
     'playground', 'performance'
   ] as const;
 

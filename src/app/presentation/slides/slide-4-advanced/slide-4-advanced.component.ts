@@ -64,18 +64,42 @@ const keyframeDemo = trigger('keyframeDemo', [
 
 // Parent-child animation coordination
 const parentAnimation = trigger('parentAnimation', [
-  transition('* => active', [
+  state('idle', style({
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    transform: 'scale(1)',
+    borderColor: 'rgba(255, 255, 255, 0.1)'
+  })),
+  state('active', style({
+    backgroundColor: 'rgba(102, 126, 234, 0.2)',
+    transform: 'scale(1.02)',
+    borderColor: 'rgba(102, 126, 234, 0.4)'
+  })),
+  transition('idle => active', [
+    animate('200ms ease-out', style({ transform: 'scale(1.02)' })),
+    query('@childAnimation', animateChild(), { optional: true })
+  ]),
+  transition('active => idle', [
     query('@childAnimation', animateChild(), { optional: true }),
-    animate(
-      '500ms ease-out',
-      style({ backgroundColor: 'rgba(102, 126, 234, 0.2)' })
-    ),
+    animate('300ms ease-in')
   ]),
 ]);
 
 const childAnimation = trigger('childAnimation', [
-  transition('* => active', [
-    animate('300ms ease-out', style({ transform: 'scale(1.1)', opacity: 0.9 })),
+  state('idle', style({
+    transform: 'scale(1) rotate(0deg)',
+    backgroundColor: 'rgba(240, 147, 251, 0.2)',
+    borderColor: '#f093fb'
+  })),
+  state('active', style({
+    transform: 'scale(1.2) rotate(10deg)',
+    backgroundColor: 'rgba(240, 147, 251, 0.6)',
+    borderColor: '#f093fb'
+  })),
+  transition('idle => active', [
+    animate('400ms 200ms ease-out') // 200ms delay for stagger effect
+  ]),
+  transition('active => idle', [
+    animate('300ms ease-in')
   ]),
 ]);
 
@@ -201,13 +225,13 @@ const tooltipFade = trigger('tooltipFade', [
                 timing
               </p>
               <div class="code-example">
-                <pre><code>animate('1000ms ease-in-out', keyframes([
-    style({{ '{' }} transform: 'translateY(0) scale(1)', offset: 0 {{ '}' }}),
-    style({{ '{' }} transform: 'translateY(-30px) scale(1.1)', offset: 0.3 {{ '}' }}),
-    style({{ '{' }} transform: 'translateY(0) scale(1)', offset: 0.6 {{ '}' }}),
-    style({{ '{' }} transform: 'translateY(-15px) scale(1.05)', offset: 0.8 {{ '}' }}),
-    style({{ '{' }} transform: 'translateY(0) scale(1)', offset: 1 {{ '}' }})
-  ]))</code></pre>
+                <pre><code class="language-typescript">animate('1000ms ease-in-out', keyframes([
+  style({{ '{' }} transform: 'translateY(0) scale(1)', offset: 0 {{ '}' }}),
+  style({{ '{' }} transform: 'translateY(-30px) scale(1.1)', offset: 0.3 {{ '}' }}),
+  style({{ '{' }} transform: 'translateY(0) scale(1)', offset: 0.6 {{ '}' }}),
+  style({{ '{' }} transform: 'translateY(-15px) scale(1.05)', offset: 0.8 {{ '}' }}),
+  style({{ '{' }} transform: 'translateY(0) scale(1)', offset: 1 {{ '}' }})
+]))</code></pre>
               </div>
               <div class="feature-demo">
                 <div class="keyframes-demo">
@@ -246,13 +270,16 @@ const tooltipFade = trigger('tooltipFade', [
 
                 @if (showPresenterNotes()) {
                   <div class="presenter-notes" [@tooltipFade]>
-                    <h4>💡 Presentation Tips:</h4>
+                    <h4>💡 Pattern Explanation:</h4>
                     <ul>
-                      <li>Demonstrate different keyframe patterns (Key: 1)</li>
-                      <li>Explain offset values (0-1 timeline)</li>
-                      <li>Show how to create complex organic movements</li>
-                      <li>Perfect for attention-grabbing animations</li>
+                      <li><strong>What:</strong> Multi-step animations with precise timing control</li>
+                      <li><strong>Why:</strong> Creates natural, physics-like motion patterns</li>
+                      <li><strong>When:</strong> Attention-grabbing effects, complex UI feedback</li>
+                      <li><strong>Best Practice:</strong> Use offset values (0-1) to control timing of each step</li>
                     </ul>
+                    <div class="presenter-tip">
+                      <strong>📝 Demo Tip:</strong> Try different patterns to show versatility (Key: 1)
+                    </div>
                   </div>
                 }
               </div>
@@ -270,13 +297,18 @@ const tooltipFade = trigger('tooltipFade', [
                 Orchestrate parent and child animations for cohesive experiences
               </p>
               <div class="code-example">
-                <pre><code>const parentAnimation = trigger('parentAnimation', [
-    transition('* => active', [
-      query('@childAnimation', animateChild(), {{ '{' }} optional: true {{ '}' }}),
-      animate('500ms ease-out',
-        style({{ '{' }} backgroundColor: 'rgba(102, 126, 234, 0.2)' {{ '}' }}))
-    ])
-  ]);</code></pre>
+                <pre><code class="language-typescript">const parentAnimation = trigger('parentAnimation', [
+  transition('idle => active', [
+    animate('200ms ease-out', style({{ '{' }} transform: 'scale(1.02)' {{ '}' }})),
+    query('@childAnimation', animateChild(), {{ '{' }} optional: true {{ '}' }})
+  ])
+]);
+
+const childAnimation = trigger('childAnimation', [
+  transition('idle => active', [
+    animate('400ms 200ms ease-out') // 200ms delay for cascade
+  ])
+]);</code></pre>
               </div>
               <div class="feature-demo">
                 <div class="coordination-demo">
@@ -285,7 +317,11 @@ const tooltipFade = trigger('tooltipFade', [
                     [@buttonPress]
                     (click)="triggerCoordinatedAnimation()"
                   >
-                    Trigger Coordination
+                    @if (coordinationState() === 'idle') {
+                      Activate Coordination
+                    } @else {
+                      Reset Coordination
+                    }
                   </button>
                   <div
                     class="parent-container"
@@ -307,13 +343,16 @@ const tooltipFade = trigger('tooltipFade', [
 
                 @if (showPresenterNotes()) {
                   <div class="presenter-notes" [@tooltipFade]>
-                    <h4>💡 Presentation Tips:</h4>
+                    <h4>💡 Pattern Explanation:</h4>
                     <ul>
-                      <li>Show parent-child animation sync (Key: 2)</li>
-                      <li>Explain animateChild() usage</li>
-                      <li>Demonstrate query() for targeting children</li>
-                      <li>Great for complex UI state changes</li>
+                      <li><strong>What:</strong> Parent triggers, then children animate with delays</li>
+                      <li><strong>Why:</strong> Creates natural, cascading animation flows</li>
+                      <li><strong>When:</strong> Card expansions, menu reveals, list updates</li>
+                      <li><strong>Best Practice:</strong> Use animateChild() and stagger delays for smooth sequences</li>
                     </ul>
+                    <div class="presenter-tip">
+                      <strong>📝 Demo Tip:</strong> Watch parent container change first, then children follow (Key: 2)
+                    </div>
                   </div>
                 }
               </div>
@@ -457,13 +496,16 @@ const tooltipFade = trigger('tooltipFade', [
 
                 @if (showPresenterNotes()) {
                   <div class="presenter-notes" [@tooltipFade]>
-                    <h4>💡 Presentation Tips:</h4>
+                    <h4>💡 Pattern Explanation:</h4>
                     <ul>
-                      <li>Adjust timing parameters dynamically (Key: 3)</li>
-                      <li>Explain GPU vs CPU animation differences</li>
-                      <li>Show impact of different easing functions</li>
-                      <li>Discuss 60fps targets and performance budgets</li>
+                      <li><strong>What:</strong> Optimized animations using GPU-accelerated properties</li>
+                      <li><strong>Why:</strong> Maintains 60fps and prevents UI blocking</li>
+                      <li><strong>When:</strong> Any production animation, especially mobile</li>
+                      <li><strong>Best Practice:</strong> Stick to transform/opacity, use will-change sparingly</li>
                     </ul>
+                    <div class="presenter-tip">
+                      <strong>📝 Demo Tip:</strong> Compare different timing functions to show performance impact (Key: 3)
+                    </div>
                   </div>
                 }
               </div>
@@ -481,14 +523,14 @@ const tooltipFade = trigger('tooltipFade', [
                 Manage complex animation states based on user interaction and data
               </p>
               <div class="code-example">
-                <pre><code>state('hover', style({{ '{' }}
-    transform: 'scale(1.1) rotate(5deg)',
-    backgroundColor: '#f093fb',
-    borderRadius: '50%'
-  {{ '}' }})),
-  transition('* => *', [
-    animate('400ms cubic-bezier(0.4, 0.0, 0.2, 1)')
-  ])</code></pre>
+                <pre><code class="language-typescript">state('hover', style({{ '{' }}
+  transform: 'scale(1.1) rotate(5deg)',
+  backgroundColor: '#f093fb',
+  borderRadius: '50%'
+{{ '}' }})),
+transition('* => *', [
+  animate('400ms cubic-bezier(0.4, 0.0, 0.2, 1)')
+])</code></pre>
               </div>
               <div class="feature-demo">
                 <div class="dynamic-demo">
@@ -526,13 +568,16 @@ const tooltipFade = trigger('tooltipFade', [
 
                 @if (showPresenterNotes()) {
                   <div class="presenter-notes" [@tooltipFade]>
-                    <h4>💡 Presentation Tips:</h4>
+                    <h4>💡 Pattern Explanation:</h4>
                     <ul>
-                      <li>Interact with element to show states (Key: 4)</li>
-                      <li>Explain state-driven design patterns</li>
-                      <li>Show how to handle multiple interaction types</li>
-                      <li>Discuss accessibility considerations</li>
+                      <li><strong>What:</strong> State-driven animations based on data and user interaction</li>
+                      <li><strong>Why:</strong> Provides clear visual feedback for complex application states</li>
+                      <li><strong>When:</strong> Interactive elements, data loading, status indicators</li>
+                      <li><strong>Best Practice:</strong> Define clear states and smooth transitions between them</li>
                     </ul>
+                    <div class="presenter-tip">
+                      <strong>📝 Demo Tip:</strong> Interact with element or cycle through states (Key: 4)
+                    </div>
                   </div>
                 }
               </div>
@@ -702,8 +747,9 @@ export class Slide4AdvancedComponent implements OnInit, AfterViewInit {
 
   // Coordination demo methods
   protected triggerCoordinatedAnimation(): void {
-    this.coordinationState.set('active');
-    setTimeout(() => this.coordinationState.set('idle'), 800);
+    const currentState = this.coordinationState();
+    const newState = currentState === 'idle' ? 'active' : 'idle';
+    this.coordinationState.set(newState);
     this.featuresExplored.update((features) => ({
       ...features,
       coordination: true,
