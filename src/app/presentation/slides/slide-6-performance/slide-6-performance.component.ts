@@ -12,12 +12,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { fadeInUp, buttonPress, staggerIn } from '../../../shared/animations';
-import {
-  trigger,
-  style,
-  transition,
-  animate,
-} from '@angular/animations';
+import { trigger, style, transition, animate } from '@angular/animations';
 
 // Import PrismJS for syntax highlighting
 import Prism from 'prismjs';
@@ -27,18 +22,25 @@ import 'prismjs/themes/prism-tomorrow.css';
 
 // Accessibility-aware animations
 const accessibleFade = trigger('accessibleFade', [
-  transition(':enter', [
-    style({ opacity: 0, transform: 'translateY(20px)' }),
-    animate('{{duration}}ms {{easing}}', style({
-      opacity: 1,
-      transform: 'translateY(0)'
-    }))
-  ], {
-    params: {
-      duration: 300,
-      easing: 'ease-out'
+  transition(
+    ':enter',
+    [
+      style({ opacity: 0, transform: 'translateY(20px)' }),
+      animate(
+        '{{duration}}ms {{easing}}',
+        style({
+          opacity: 1,
+          transform: 'translateY(0)',
+        })
+      ),
+    ],
+    {
+      params: {
+        duration: 300,
+        easing: 'ease-out',
+      },
     }
-  })
+  ),
 ]);
 
 type PracticeCategory = 'performance' | 'accessibility' | 'maintainability';
@@ -62,7 +64,8 @@ interface BestPractice {
       <header class="slide-header">
         <h1>Performance & Best Practices</h1>
         <p class="slide-subtitle">
-          Production-ready animations with accessibility and optimization in mind
+          Production-ready animations with accessibility and optimization in
+          mind
         </p>
       </header>
 
@@ -74,15 +77,15 @@ interface BestPractice {
 
           <!-- Presentation Notes -->
           @if (showPresentationNotes()) {
-            <div class="presentation-notes">
-              <h4>📝 Presentation Notes:</h4>
-              <ul>
-                <li>Emphasize performance-first mindset for production apps</li>
-                <li>Highlight the importance of GPU-accelerated properties</li>
-                <li>Show how accessibility and performance can work together</li>
-                <li>Discuss maintainable code practices for teams</li>
-              </ul>
-            </div>
+          <div class="presentation-notes">
+            <h4>📝 Presentation Notes:</h4>
+            <ul>
+              <li>Emphasize performance-first mindset for production apps</li>
+              <li>Highlight the importance of GPU-accelerated properties</li>
+              <li>Show how accessibility and performance can work together</li>
+              <li>Discuss maintainable code practices for teams</li>
+            </ul>
+          </div>
           }
 
           <!-- Category Tabs -->
@@ -91,21 +94,24 @@ interface BestPractice {
               class="tab-btn"
               [class.active]="activeCategory() === 'performance'"
               [@buttonPress]
-              (click)="setActiveCategory('performance')">
+              (click)="setActiveCategory('performance')"
+            >
               ⚡ Performance
             </button>
             <button
               class="tab-btn"
               [class.active]="activeCategory() === 'accessibility'"
               [@buttonPress]
-              (click)="setActiveCategory('accessibility')">
+              (click)="setActiveCategory('accessibility')"
+            >
               ♿ Accessibility
             </button>
             <button
               class="tab-btn"
               [class.active]="activeCategory() === 'maintainability'"
               [@buttonPress]
-              (click)="setActiveCategory('maintainability')">
+              (click)="setActiveCategory('maintainability')"
+            >
               🔧 Maintainability
             </button>
           </div>
@@ -113,25 +119,23 @@ interface BestPractice {
           <!-- Best Practices List -->
           <div class="practices-list">
             @for (practice of filteredPractices(); track practice.title) {
-              <div
-                class="practice-card"
-                [@accessibleFade]>
-                <div class="practice-header">
-                  <div class="practice-icon">{{ practice.icon }}</div>
-                  <div class="practice-info">
-                    <h3>{{ practice.title }}</h3>
-                    <div class="practice-meta">
-                      <span class="impact impact-{{ practice.impact }}">
-                        {{ practice.impact }} impact
-                      </span>
-                    </div>
+            <div class="practice-card" [@accessibleFade]>
+              <div class="practice-header">
+                <div class="practice-icon">{{ practice.icon }}</div>
+                <div class="practice-info">
+                  <h3>{{ practice.title }}</h3>
+                  <div class="practice-meta">
+                    <span class="impact impact-{{ practice.impact }}">
+                      {{ practice.impact }} impact
+                    </span>
                   </div>
                 </div>
-                <p class="practice-description">{{ practice.description }}</p>
-                <div class="practice-code">
-                  <pre><code [innerHTML]="highlightCode(practice.code)"></code></pre>
-                </div>
               </div>
+              <p class="practice-description">{{ practice.description }}</p>
+              <div class="practice-code">
+                <pre><code [innerHTML]="highlightCode(practice.code)"></code></pre>
+              </div>
+            </div>
             }
           </div>
         </section>
@@ -142,15 +146,26 @@ interface BestPractice {
 
           <!-- Presentation Notes -->
           @if (showPresentationNotes()) {
-            <div class="presentation-notes">
-              <h4>📝 Presentation Notes:</h4>
-              <ul>
-                <li>Angular 20 brings significant improvements to animation performance</li>
-                <li>Signals integration makes reactive animations more intuitive</li>
-                <li>Standalone components reduce bundle size and improve tree-shaking</li>
-                <li>New APIs provide better TypeScript support and developer experience</li>
-              </ul>
-            </div>
+          <div class="presentation-notes">
+            <h4>📝 Presentation Notes:</h4>
+            <ul>
+              <li>
+                Angular 20 brings significant improvements to animation
+                performance
+              </li>
+              <li>
+                Signals integration makes reactive animations more intuitive
+              </li>
+              <li>
+                Standalone components reduce bundle size and improve
+                tree-shaking
+              </li>
+              <li>
+                New APIs provide better TypeScript support and developer
+                experience
+              </li>
+            </ul>
+          </div>
           }
 
           <div class="features-grid">
@@ -161,7 +176,8 @@ interface BestPractice {
                 <h3>Signals Integration</h3>
               </div>
               <p class="feature-description">
-                Native support for signals in animation parameters with automatic change detection
+                Native support for signals in animation parameters with
+                automatic change detection
               </p>
             </div>
 
@@ -172,7 +188,8 @@ interface BestPractice {
                 <h3>Standalone Components</h3>
               </div>
               <p class="feature-description">
-                Simplified imports with better tree-shaking for animation modules
+                Simplified imports with better tree-shaking for animation
+                modules
               </p>
             </div>
 
@@ -183,7 +200,8 @@ interface BestPractice {
                 <h3>Enhanced Performance</h3>
               </div>
               <p class="feature-description">
-                Optimized animation engine with better memory management and reduced bundle size
+                Optimized animation engine with better memory management and
+                reduced bundle size
               </p>
             </div>
 
@@ -194,7 +212,8 @@ interface BestPractice {
                 <h3>New Animation APIs</h3>
               </div>
               <p class="feature-description">
-                Improved animation builder with better TypeScript support and intellisense
+                Improved animation builder with better TypeScript support and
+                intellisense
               </p>
               <div class="code-example">
                 <pre><code class="language-typescript" [innerHTML]="highlightedNewApisCode()"></code></pre>
@@ -209,41 +228,53 @@ interface BestPractice {
 
           <!-- Presentation Notes -->
           @if (showPresentationNotes()) {
-            <div class="presentation-notes">
-              <h4>📝 Presentation Notes:</h4>
-              <ul>
-                <li>Summarize the main performance principles covered</li>
-                <li>Remind audience about mobile performance considerations</li>
-                <li>Encourage testing on real devices, not just desktop</li>
-                <li>Emphasize the importance of accessibility in animations</li>
-                <li>Share resources for continued learning</li>
-              </ul>
-            </div>
+          <div class="presentation-notes">
+            <h4>📝 Presentation Notes:</h4>
+            <ul>
+              <li>Summarize the main performance principles covered</li>
+              <li>Remind audience about mobile performance considerations</li>
+              <li>Encourage testing on real devices, not just desktop</li>
+              <li>Emphasize the importance of accessibility in animations</li>
+              <li>Share resources for continued learning</li>
+            </ul>
+          </div>
           }
 
           <div class="takeaways-grid">
             <div class="takeaway-card">
               <div class="takeaway-icon">🎯</div>
               <h3>Performance First</h3>
-              <p>Use transform and opacity for animations. Avoid animating layout properties.</p>
+              <p>
+                Use transform and opacity for animations. Avoid animating layout
+                properties.
+              </p>
             </div>
 
             <div class="takeaway-card">
               <div class="takeaway-icon">♿</div>
               <h3>Accessibility Matters</h3>
-              <p>Respect user preferences and provide meaningful motion alternatives.</p>
+              <p>
+                Respect user preferences and provide meaningful motion
+                alternatives.
+              </p>
             </div>
 
             <div class="takeaway-card">
               <div class="takeaway-icon">🔧</div>
               <h3>Maintainable Code</h3>
-              <p>Create reusable animation utilities and document performance considerations.</p>
+              <p>
+                Create reusable animation utilities and document performance
+                considerations.
+              </p>
             </div>
 
             <div class="takeaway-card">
               <div class="takeaway-icon">📱</div>
               <h3>Mobile Ready</h3>
-              <p>Test on real devices and optimize for battery life and performance.</p>
+              <p>
+                Test on real devices and optimize for battery life and
+                performance.
+              </p>
             </div>
           </div>
 
@@ -251,13 +282,25 @@ interface BestPractice {
           <div class="resources-section">
             <h3>📚 Additional Resources</h3>
             <div class="resources-list">
-              <a href="https://angular.dev/guide/animations" target="_blank" class="resource-link">
+              <a
+                href="https://angular.dev/guide/animations"
+                target="_blank"
+                class="resource-link"
+              >
                 Angular Animations Guide
               </a>
-              <a href="https://web.dev/animations/" target="_blank" class="resource-link">
+              <a
+                href="https://web.dev/animations/"
+                target="_blank"
+                class="resource-link"
+              >
                 Web.dev Animation Best Practices
               </a>
-              <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations/Using_CSS_animations" target="_blank" class="resource-link">
+              <a
+                href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations/Using_CSS_animations"
+                target="_blank"
+                class="resource-link"
+              >
                 MDN CSS Animations
               </a>
             </div>
@@ -268,7 +311,10 @@ interface BestPractice {
             <h2>🎉 Thank You!</h2>
             <p>Questions & Discussion</p>
             <div class="contact-info">
-              <span>Slides available at: https://github.com/QuayeDNA/my-angular-backyard</span>
+              <span
+                >Slides available at:
+                https://github.com/QuayeDNA/my-angular-backyard</span
+              >
             </div>
           </div>
         </section>
@@ -279,22 +325,20 @@ interface BestPractice {
         <!-- Keyboard shortcuts -->
         <div class="keyboard-shortcuts">
           <small>
-            🎮 Shortcuts: <kbd>P</kbd> Notes | <kbd>1-3</kbd> Categories | <kbd>4</kbd> Angular 20
+            🎮 Shortcuts: <kbd>P</kbd> Notes | <kbd>1-3</kbd> Categories |
+            <kbd>4</kbd> Angular 20
           </small>
         </div>
       </footer>
     </div>
   `,
   styleUrl: './slide-6-performance.component.scss',
-  animations: [
-    fadeInUp,
-    buttonPress,
-    staggerIn,
-    accessibleFade
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  animations: [fadeInUp, buttonPress, staggerIn, accessibleFade],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Slide6PerformanceComponent implements OnInit, AfterViewInit, OnDestroy {
+export class Slide6PerformanceComponent
+  implements OnInit, AfterViewInit, OnDestroy
+{
   constructor(private readonly elementRef: ElementRef) {
     // Remove the problematic effect that causes infinite loops
   }
@@ -316,7 +360,8 @@ export class Slide6PerformanceComponent implements OnInit, AfterViewInit, OnDest
     {
       title: 'Use Transform & Opacity',
       category: 'performance',
-      description: 'Animate only GPU-accelerated properties for 60fps performance',
+      description:
+        'Animate only GPU-accelerated properties for 60fps performance',
       code: `// ✅ Good - GPU accelerated
 animate('300ms ease-out', style({
   transform: 'translateX(100px) scale(1.1)',
@@ -330,12 +375,13 @@ animate('300ms ease-out', style({
   height: '150px'
 }))`,
       impact: 'high',
-      icon: '⚡'
+      icon: '⚡',
     },
     {
       title: 'Angular 20 Signals Integration',
       category: 'performance',
-      description: 'Use signals for reactive animation parameters with automatic change detection',
+      description:
+        'Use signals for reactive animation parameters with automatic change detection',
       code: `// Angular 20 - Signals-driven animations
 @Component({
   template: \`<div [@slideAnimation]="{
@@ -348,12 +394,13 @@ export class SignalComponent {
   duration = signal(300);
 }`,
       impact: 'high',
-      icon: '📡'
+      icon: '📡',
     },
     {
       title: 'Standalone Components',
       category: 'performance',
-      description: 'Better tree-shaking and reduced bundle size with standalone components',
+      description:
+        'Better tree-shaking and reduced bundle size with standalone components',
       code: `// Angular 20 - Standalone with animations
 @Component({
   imports: [CommonModule],
@@ -364,7 +411,7 @@ export class StandaloneAnimated {}
 
 // Better tree-shaking removes unused animations`,
       impact: 'medium',
-      icon: '🎯'
+      icon: '🎯',
     },
     {
       title: 'Minimize Repaints',
@@ -381,22 +428,7 @@ export class StandaloneAnimated {}
   to { transform: translateX(100px); }
 }`,
       impact: 'high',
-      icon: '🎨'
-    },
-    {
-      title: 'Use will-change Sparingly',
-      category: 'performance',
-      description: 'Apply will-change before animation, remove after',
-      code: `// ✅ Proper will-change usage
-animationStart() {
-  this.element.style.willChange = 'transform';
-}
-
-animationEnd() {
-  this.element.style.willChange = 'auto';
-}`,
-      impact: 'medium',
-      icon: '🔧'
+      icon: '🎨',
     },
 
     // Accessibility practices
@@ -414,7 +446,7 @@ animationEnd() {
 // In Angular
 const duration = this.prefersReducedMotion ? 0 : 300;`,
       impact: 'high',
-      icon: '♿'
+      icon: '♿',
     },
     {
       title: 'Meaningful Motion',
@@ -428,7 +460,7 @@ const slideIn = trigger('slideIn', [
   ])
 ]);`,
       impact: 'medium',
-      icon: '🎯'
+      icon: '🎯',
     },
     {
       title: 'Focus Management',
@@ -441,7 +473,7 @@ onSlideComplete() {
   this.focusTarget.nativeElement.focus();
 }`,
       impact: 'medium',
-      icon: '🔍'
+      icon: '🔍',
     },
 
     // Maintainability practices
@@ -458,12 +490,13 @@ export const slideIn = (direction: 'left' | 'right' | 'up' | 'down') =>
     ])
   ]);`,
       impact: 'high',
-      icon: '🔄'
+      icon: '🔄',
     },
     {
       title: 'Angular 20 Animation Builder',
       category: 'maintainability',
-      description: 'Use new type-safe animation builder APIs for better maintainability',
+      description:
+        'Use new type-safe animation builder APIs for better maintainability',
       code: `// Angular 20 - Enhanced Animation Builder
 @Injectable()
 export class AnimationService {
@@ -477,7 +510,7 @@ export class AnimationService {
   }
 }`,
       impact: 'high',
-      icon: '🛠️'
+      icon: '🛠️',
     },
     {
       title: 'Animation States as Enums',
@@ -493,7 +526,7 @@ export class AnimationService {
 // Usage
 this.animationState.set(AnimationState.LOADING);`,
       impact: 'medium',
-      icon: '📝'
+      icon: '📝',
     },
     {
       title: 'Performance Documentation',
@@ -510,13 +543,15 @@ export const slideAnimation = trigger('slide', [
   // ... animation definition
 ]);`,
       impact: 'low',
-      icon: '📚'
-    }
+      icon: '📚',
+    },
   ];
 
   // Computed filtered practices
   protected readonly filteredPractices = computed(() =>
-    this.allPractices.filter(practice => practice.category === this.activeCategory())
+    this.allPractices.filter(
+      (practice) => practice.category === this.activeCategory()
+    )
   );
 
   // Code examples for optimization comparison
@@ -638,28 +673,52 @@ export class AnimationService {
 
   // Computed highlighted code signals
   protected readonly highlightedSignalsCode = computed(() =>
-    Prism.highlight(this.signalsCode, Prism.languages['typescript'], 'typescript')
+    Prism.highlight(
+      this.signalsCode,
+      Prism.languages['typescript'],
+      'typescript'
+    )
   );
 
   protected readonly highlightedStandaloneCode = computed(() =>
-    Prism.highlight(this.standaloneCode, Prism.languages['typescript'], 'typescript')
+    Prism.highlight(
+      this.standaloneCode,
+      Prism.languages['typescript'],
+      'typescript'
+    )
   );
 
   protected readonly highlightedPerformanceCode = computed(() =>
-    Prism.highlight(this.performanceCode, Prism.languages['typescript'], 'typescript')
+    Prism.highlight(
+      this.performanceCode,
+      Prism.languages['typescript'],
+      'typescript'
+    )
   );
 
   protected readonly highlightedNewApisCode = computed(() =>
-    Prism.highlight(this.newApisCode, Prism.languages['typescript'], 'typescript')
+    Prism.highlight(
+      this.newApisCode,
+      Prism.languages['typescript'],
+      'typescript'
+    )
   );
 
   // Highlighted code computed signals
   protected readonly highlightedInefficient = computed(() =>
-    Prism.highlight(this.inefficientCode, Prism.languages['typescript'], 'typescript')
+    Prism.highlight(
+      this.inefficientCode,
+      Prism.languages['typescript'],
+      'typescript'
+    )
   );
 
   protected readonly highlightedEfficient = computed(() =>
-    Prism.highlight(this.efficientCode, Prism.languages['typescript'], 'typescript')
+    Prism.highlight(
+      this.efficientCode,
+      Prism.languages['typescript'],
+      'typescript'
+    )
   );
 
   ngOnInit() {
@@ -708,14 +767,17 @@ export class AnimationService {
   @HostListener('window:keydown', ['$event'])
   handlePresenterShortcuts(event: KeyboardEvent): void {
     // Prevent shortcuts when user is typing in inputs
-    if (event.target && (event.target as HTMLElement).tagName.toLowerCase() === 'input') {
+    if (
+      event.target &&
+      (event.target as HTMLElement).tagName.toLowerCase() === 'input'
+    ) {
       return;
     }
 
     switch (event.key.toLowerCase()) {
       case 'p': // Toggle presentation notes
         event.preventDefault();
-        this.showPresentationNotes.update(show => !show);
+        this.showPresentationNotes.update((show) => !show);
         break;
       case '1': // Performance category
         event.preventDefault();
@@ -732,9 +794,13 @@ export class AnimationService {
       case '4': {
         // Scroll to Angular 20 features
         event.preventDefault();
-        const angular20Section = this.elementRef.nativeElement.querySelector('.angular20-panel');
+        const angular20Section =
+          this.elementRef.nativeElement.querySelector('.angular20-panel');
         if (angular20Section) {
-          angular20Section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          angular20Section.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+          });
         }
         break;
       }
