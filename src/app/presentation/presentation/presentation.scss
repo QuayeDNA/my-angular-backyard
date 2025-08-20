@@ -22,9 +22,38 @@
     font-weight: 600;
   }
 
-  .slide-counter {
-    font-size: 1rem;
-    opacity: 0.8;
+  .header-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .playground-btn {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border: none;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+
+      &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+
+    .slide-counter {
+      font-size: 1rem;
+      opacity: 0.8;
+    }
   }
 }
 

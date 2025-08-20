@@ -82,12 +82,29 @@
 
   .features-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
     margin-bottom: 2rem;
 
+    // Make the 4th item (New Animation APIs) span full width
+    .feature-card:nth-child(4) {
+      grid-column: 1 / -1;
+    }
+
+    @media (max-width: 1024px) {
+      grid-template-columns: repeat(2, 1fr);
+
+      .feature-card:nth-child(4) {
+        grid-column: 1 / -1;
+      }
+    }
+
     @media (max-width: 768px) {
       grid-template-columns: 1fr;
+
+      .feature-card:nth-child(4) {
+        grid-column: 1;
+      }
     }
   }
 
@@ -436,7 +453,11 @@
   }
 
   .practices-list {
-    max-height: 1600px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 1rem;
+    max-height: 800px;
     overflow-y: auto;
     padding-right: 0.5rem;
 
@@ -457,6 +478,11 @@
         background: rgba(255,255,255,0.4);
       }
     }
+
+    @media (max-width: 1024px) {
+      grid-template-columns: 1fr;
+      grid-template-rows: none;
+    }
   }
 }
 
@@ -465,8 +491,10 @@
   background: rgba(255,255,255,0.05);
   border-radius: 12px;
   padding: 1.5rem;
-  margin-bottom: 1rem;
   border: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 
   .practice-header {
     display: flex;

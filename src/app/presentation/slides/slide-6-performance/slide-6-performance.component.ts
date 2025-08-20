@@ -73,15 +73,17 @@ interface BestPractice {
           <h2>Best Practices</h2>
 
           <!-- Presentation Notes -->
-          <div class="presentation-notes">
-            <h4>📝 Presentation Notes:</h4>
-            <ul>
-              <li>Emphasize performance-first mindset for production apps</li>
-              <li>Highlight the importance of GPU-accelerated properties</li>
-              <li>Show how accessibility and performance can work together</li>
-              <li>Discuss maintainable code practices for teams</li>
-            </ul>
-          </div>
+          @if (showPresentationNotes()) {
+            <div class="presentation-notes">
+              <h4>📝 Presentation Notes:</h4>
+              <ul>
+                <li>Emphasize performance-first mindset for production apps</li>
+                <li>Highlight the importance of GPU-accelerated properties</li>
+                <li>Show how accessibility and performance can work together</li>
+                <li>Discuss maintainable code practices for teams</li>
+              </ul>
+            </div>
+          }
 
           <!-- Category Tabs -->
           <div class="category-tabs">
@@ -139,15 +141,17 @@ interface BestPractice {
           <h2>🚀 Angular 20 Animation Features</h2>
 
           <!-- Presentation Notes -->
-          <div class="presentation-notes">
-            <h4>📝 Presentation Notes:</h4>
-            <ul>
-              <li>Angular 20 brings significant improvements to animation performance</li>
-              <li>Signals integration makes reactive animations more intuitive</li>
-              <li>Standalone components reduce bundle size and improve tree-shaking</li>
-              <li>New APIs provide better TypeScript support and developer experience</li>
-            </ul>
-          </div>
+          @if (showPresentationNotes()) {
+            <div class="presentation-notes">
+              <h4>📝 Presentation Notes:</h4>
+              <ul>
+                <li>Angular 20 brings significant improvements to animation performance</li>
+                <li>Signals integration makes reactive animations more intuitive</li>
+                <li>Standalone components reduce bundle size and improve tree-shaking</li>
+                <li>New APIs provide better TypeScript support and developer experience</li>
+              </ul>
+            </div>
+          }
 
           <div class="features-grid">
             <!-- Signals Integration -->
@@ -204,16 +208,18 @@ interface BestPractice {
           <h2>Key Takeaways</h2>
 
           <!-- Presentation Notes -->
-          <div class="presentation-notes">
-            <h4>📝 Presentation Notes:</h4>
-            <ul>
-              <li>Summarize the main performance principles covered</li>
-              <li>Remind audience about mobile performance considerations</li>
-              <li>Encourage testing on real devices, not just desktop</li>
-              <li>Emphasize the importance of accessibility in animations</li>
-              <li>Share resources for continued learning</li>
-            </ul>
-          </div>
+          @if (showPresentationNotes()) {
+            <div class="presentation-notes">
+              <h4>📝 Presentation Notes:</h4>
+              <ul>
+                <li>Summarize the main performance principles covered</li>
+                <li>Remind audience about mobile performance considerations</li>
+                <li>Encourage testing on real devices, not just desktop</li>
+                <li>Emphasize the importance of accessibility in animations</li>
+                <li>Share resources for continued learning</li>
+              </ul>
+            </div>
+          }
 
           <div class="takeaways-grid">
             <div class="takeaway-card">
@@ -262,7 +268,7 @@ interface BestPractice {
             <h2>🎉 Thank You!</h2>
             <p>Questions & Discussion</p>
             <div class="contact-info">
-              <span>Slides available at: github.com/your-repo</span>
+              <span>Slides available at: https://github.com/QuayeDNA/my-angular-backyard</span>
             </div>
           </div>
         </section>
@@ -273,7 +279,7 @@ interface BestPractice {
         <!-- Keyboard shortcuts -->
         <div class="keyboard-shortcuts">
           <small>
-            🎮 Shortcuts: <kbd>1-3</kbd> Categories | <kbd>4</kbd> Angular 20
+            🎮 Shortcuts: <kbd>P</kbd> Notes | <kbd>1-3</kbd> Categories | <kbd>4</kbd> Angular 20
           </small>
         </div>
       </footer>
@@ -297,6 +303,9 @@ export class Slide6PerformanceComponent implements OnInit, AfterViewInit, OnDest
   protected readonly practicesTrigger = signal(0);
   protected readonly angular20Trigger = signal(0);
   protected readonly conclusionTrigger = signal(0);
+
+  // Presentation notes visibility
+  protected readonly showPresentationNotes = signal(false);
 
   // Best practices
   protected readonly activeCategory = signal<PracticeCategory>('performance');
@@ -704,6 +713,10 @@ export class AnimationService {
     }
 
     switch (event.key.toLowerCase()) {
+      case 'p': // Toggle presentation notes
+        event.preventDefault();
+        this.showPresentationNotes.update(show => !show);
+        break;
       case '1': // Performance category
         event.preventDefault();
         this.setActiveCategory('performance');

@@ -342,7 +342,7 @@ interface AnimationPreset {
         <!-- Keyboard shortcuts for presenter -->
         <div class="keyboard-shortcuts" [@tooltipFade]>
           <small>
-            🎮 Shortcuts: <kbd>Space</kbd> Play | <kbd>R</kbd> Reset | <kbd>P</kbd> Notes | <kbd>1-6</kbd> Presets
+            🎮 Shortcuts: <kbd>Space</kbd> Play | <kbd>R</kbd> Reset | <kbd>1-6</kbd> Presets
           </small>
         </div>
       </footer>
@@ -801,10 +801,6 @@ export class MyComponent {
       case 'r': // Reset
         event.preventDefault();
         this.resetAnimation();
-        break;
-      case 'p': // Toggle presenter notes
-        event.preventDefault();
-        this.showPresenterNotes.update((show) => !show);
         break;
       case '1':
         event.preventDefault();

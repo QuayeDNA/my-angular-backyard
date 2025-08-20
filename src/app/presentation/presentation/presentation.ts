@@ -18,80 +18,91 @@ import { Slide6PerformanceComponent } from '../slides/slide-6-performance/slide-
       <!-- Header with slide counter -->
       <header class="presentation-header">
         <h1>Angular Animations Deep Dive</h1>
-        <div class="slide-counter">
-          {{ currentSlideIndex() + 1 }} / {{ totalSlides }}
+        <div class="header-controls">
+          <button
+            [@buttonPress]
+            (click)="togglePlayground()"
+            class="playground-btn">
+            🎮 Playground
+          </button>
+          <div class="slide-counter">
+            {{ currentSlideIndex() + 1 }} / {{ totalSlides }}
+          </div>
         </div>
       </header>
 
       <!-- Main slide content area -->
       <main class="slide-content" [@slideTransition]="currentSlideIndex()">
-        @switch (currentSlide()) {
-          @case ('intro') {
-            <app-slide-1-intro />
-          }
-          @case ('overview') {
-            <app-slide-1-5-overview />
-          }
-          @case ('concepts') {
-            <app-slide-2-concepts />
-          }
-          @case ('patterns') {
-            <app-slide-3-patterns />
-          }
-           @case ('advanced') {
-            <app-slide-4-advanced />
-          }
-          @case ('playground') {
-            <app-slide-5-playground />
-          }
-          @case ('performance') {
-            <app-slide-6-performance />
-          }
-          @default {
-            <div class="slide">
-              <h2>Slide not found</h2>
-            </div>
+        @if (showPlayground()) {
+          <app-slide-5-playground />
+        } @else {
+          @switch (currentSlide()) {
+            @case ('intro') {
+              <app-slide-1-intro />
+            }
+            @case ('overview') {
+              <app-slide-1-5-overview />
+            }
+            @case ('concepts') {
+              <app-slide-2-concepts />
+            }
+            @case ('patterns') {
+              <app-slide-3-patterns />
+            }
+             @case ('advanced') {
+              <app-slide-4-advanced />
+            }
+            @case ('performance') {
+              <app-slide-6-performance />
+            }
+            @default {
+              <div class="slide">
+                <h2>Slide not found</h2>
+              </div>
+            }
           }
         }
       </main>
 
       <!-- Navigation footer -->
-      <footer class="presentation-footer">
-        <button
-          [@buttonPress]
-          (click)="previousSlide()"
-          [disabled]="currentSlideIndex() === 0"
-          class="nav-btn">
-          ← Previous
-        </button>
+      @if (!showPlayground()) {
+        <footer class="presentation-footer">
+          <button
+            [@buttonPress]
+            (click)="previousSlide()"
+            [disabled]="currentSlideIndex() === 0"
+            class="nav-btn">
+            ← Previous
+          </button>
 
-        <div class="slide-indicators">
-          @for (slide of slides; track $index) {
-            <button
-              class="indicator"
-              [class.active]="$index === currentSlideIndex()"
-              (click)="goToSlide($index)">
-              {{ $index + 1 }}
-            </button>
-          }
+          <div class="slide-indicators">
+            @for (slide of slides; track $index) {
+              <button
+                class="indicator"
+                [class.active]="$index === currentSlideIndex()"
+                (click)="goToSlide($index)">
+                {{ $index + 1 }}
+              </button>
+            }
+          </div>
+
+          <button
+            [@buttonPress]
+            (click)="nextSlide()"
+            [disabled]="currentSlideIndex() === totalSlides - 1"
+            class="nav-btn">
+            Next →
+          </button>
+        </footer>
+
+        <!-- Progress bar -->
+        <div class="progress-bar">
+          <div
+            class="progress-fill"
+            [style.width.%]="progressPercentage()">
+          </div>
         </div>
-
-        <button
-          [@buttonPress]
-          (click)="nextSlide()"
-          [disabled]="currentSlideIndex() === totalSlides - 1"
-          class="nav-btn">
-          Next →
-        </button>
-      </footer>
-
-      <!-- Progress bar -->
-      <div class="progress-bar">
-        <div
-          class="progress-fill"
-          [style.width.%]="progressPercentage()">
-        </div>
-      </div>
+      }
     </div>
   `,
   styleUrl: './presentation.scss',
@@ -102,10 +113,13 @@ export class PresentationComponent {
   // Slide configuration
   protected readonly slides = [
     'intro', 'overview', 'concepts', 'patterns','advanced',
-    'playground', 'performance'
+    'performance'
   ] as const;
 
   protected readonly totalSlides = this.slides.length;
+
+  // Playground state
+  protected readonly showPlayground = signal(false);
 
   // Current slide state
   protected readonly currentSlideIndex = signal(0);
@@ -138,9 +152,24 @@ export class PresentationComponent {
     }
   }
 
+  // Playground methods
+  protected togglePlayground(): void {
+    this.showPlayground.update(show => !show);
+  }
+
   // Keyboard navigation
   @HostListener('window:keydown', ['$event'])
   handleKeyboard(event: KeyboardEvent): void {
+    // Don't handle keyboard shortcuts when playground is open
+    if (this.showPlayground()) {
+      // Allow Escape to close playground
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        this.showPlayground.set(false);
+      }
+      return;
+    }
+
     switch (event.key) {
       case 'ArrowRight':
       case ' ': // Spacebar
